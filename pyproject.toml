@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "flet-stacked"
+version = "1.0.0"
+description = "a custom Flet control for managing multiple pages with smooth animations."
+authors = ["Osama Mohammed <omamkaz@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+keywords = [
+    "flet",
+    "toolkit",
+    "tools",
+    "route",
+    "pages",
+    "navigation"
+]
+packages = [{ include = "flet_stacked", from = "src" }]
+
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4.0"
+flet = "^0.25"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
