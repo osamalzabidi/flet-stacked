@@ -1,15 +1,12 @@
-# Flet Stacked
+# Flet Stacked v1.0.3
 
 `Stacked` is a custom Flet control for managing multiple pages with smooth animations. It supports switching pages by key or index, next/previous navigation, and customizable transitions, making it perfect for dynamic UIs.
 
 ## Features
 
 - Smooth Transitions: Seamlessly switch between pages with customizable animations and durations.
-
 - Flexible Navigation: Navigate by keys, indices, or with next/previous controls for dynamic UIs.
-
 - State Management: Easily access the current page or route for efficient state handling.
-
 
 ## Installation
 You can install Flet Stacked using pip:
@@ -38,7 +35,7 @@ def main(page: ft.Page):
         "contact": ft.Text("Contact Page", size=30),
     }
 
-    stacked = Stacked(routes, index="home")
+    stacked = Stacked(routes, index="home", on_route_change=lambda route: print("Route: ", route))
 
     def go_to_about(e):
         stacked.switch("about")

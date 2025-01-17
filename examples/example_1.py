@@ -15,7 +15,9 @@ def main(page: ft.Page):
         "contact": ft.Text("Contact Page", size=30),
     }
 
-    stacked = Stacked(routes, index="home")
+    stacked = Stacked(
+        routes, index="home", on_route_change=lambda route: print("Route: ", route)
+    )
 
     def go_to_about(e):
         stacked.switch("about")
