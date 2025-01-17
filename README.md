@@ -32,13 +32,13 @@ def main(page: ft.Page):
 
     page.window.width = page.window.height = 600
 
-    pages = {
+    routes = {
         "home": ft.Text("Home Page", size=30),
         "about": ft.Text("About Page", size=30),
         "contact": ft.Text("Contact Page", size=30),
     }
 
-    stacked = Stacked(pages, index="home")
+    stacked = Stacked(routes, index="home")
 
     def go_to_about(e):
         stacked.switch("about")

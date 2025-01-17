@@ -7,7 +7,7 @@ import flet as ft
 
 class Stacked(ft.AnimatedSwitcher):
     """
-    a custom Flet control for managing multiple pages with smooth animations.
+    a custom Flet control for managing multiple routes with smooth animations.
 
     Example:
     ```
@@ -22,13 +22,13 @@ class Stacked(ft.AnimatedSwitcher):
 
         page.window.width = page.window.height = 600
 
-        pages = {
+        routes = {
             "home": ft.Text("Home Page", size=30),
             "about": ft.Text("About Page", size=30),
             "contact": ft.Text("Contact Page", size=30),
         }
 
-        stacked = Stacked(pages, index="home")
+        stacked = Stacked(routes, index="home")
 
         def go_to_about(e):
             stacked.switch("about")
@@ -59,11 +59,11 @@ class Stacked(ft.AnimatedSwitcher):
     """
 
     def __init__(
-        self, pages: dict[str, ft.Control], index: str | int = 0, **kwargs
+        self, routes: dict[str, ft.Control], index: str | int = 0, **kwargs
     ) -> None:
         kwargs.pop("content", None)
-        self._pages = pages
-        self._index = self._parse_index(index, pages)
+        self._routes = routes
+        self._index = self._parse_route(index, routes)
 
         # default animations
         kwargs.setdefault("transition", ft.AnimatedSwitcherTransition.FADE)
@@ -72,42 +72,45 @@ class Stacked(ft.AnimatedSwitcher):
         kwargs.setdefault("switch_in_curve", ft.AnimationCurve.LINEAR)
         kwargs.setdefault("switch_out_curve", ft.AnimationCurve.EASE_IN_CUBIC)
 
-        super().__init__(self._pages.get(self._index), **kwargs)
+        super().__init__(self._routes.get(self._index), **kwargs)
 
-    def _parse_index(
-        self, index: str | int, pages: dict[str, ft.Control] = None
+    def _parse_route(
+        self, index: str | int, routes: dict[str, ft.Control] = None
     ) -> None:
-        pages = self._pages or pages
+        routes = self._routes or routes
         if isinstance(index, int):
-            return tuple(pages.keys())[index]
+            return tuple(routes.keys())[index]
         return index
 
     def switch(self, route: str | int = 0) -> None:
-        route: str = self._parse_index(route)
-        assert route in self._pages, KeyError(f"'{route}' is not exists.")
+        route: str = self._parse_route(route)
+        assert route in self._routes, KeyError(f"'{route}' is not exists.")
         self._index = route
-        self.content = self._pages.get(route)
+        self.content = self._routes.get(route)
         self.update()
 
-    def go(self, route: str | int = 0) -> None:
-        return self.switch(route)
-
     def get(self, route: str | int) -> ft.Control:
-        return self._pages.get(route)
+        return self._routes.get(route)
 
     def cur_route(self) -> str:
         return self._index
 
+    def cur_control(self) -> ft.Control:
+        return self._routes.get(self._index)
+
     def cur_page(self) -> ft.Control:
-        return self._pages.get(self._index)
+        return self.cur_control()
+
+    def go(self, route: str | int = 0) -> None:
+        return self.switch(route)
 
     def go_next(self) -> None:
-        cur_index: int = tuple(self._pages.keys()).index(self._index)
-        pages_count: int = len(self._pages)
-        if cur_index < pages_count - 1:
+        cur_index: int = tuple(self._routes.keys()).index(self._index)
+        routes_count: int = len(self._routes)
+        if cur_index < routes_count - 1:
             self.switch(cur_index + 1)
 
     def go_prev(self) -> None:
-        cur_index: int = tuple(self._pages.keys()).index(self._index)
+        cur_index: int = tuple(self._routes.keys()).index(self._index)
         if cur_index > 0:
             self.switch(cur_index - 1)

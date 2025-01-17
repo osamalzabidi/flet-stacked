@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "flet-stacked"
-version = "1.0.0"
+version = "1.0.2"
 description = "a custom Flet control for managing multiple pages with smooth animations."
 authors = ["Osama Mohammed <omamkaz@gmail.com>"]
 readme = "README.md"
@@ -18,7 +18,7 @@ packages = [{ include = "flet_stacked", from = "src" }]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
-flet = "^0.25"
+flet = "^0.25.2"
 
 
 [build-system]
