@@ -1,4 +1,4 @@
-# Flet Stacked v1.0.3
+# Flet Stacked v1.0.4
 
 `Stacked` is a custom Flet control for managing multiple pages with smooth animations. It supports switching pages by key or index, next/previous navigation, and customizable transitions, making it perfect for dynamic UIs.
 

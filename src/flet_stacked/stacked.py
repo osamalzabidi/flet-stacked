@@ -90,16 +90,17 @@ class Stacked(ft.AnimatedSwitcher):
             return tuple(routes.keys())[index]
         return index
 
-    def switch(self, route: Union[str, int] = 0) -> ft.Control:
+    def switch(self, route: Union[str, int] = 0, *args, **kwargs) -> ft.Control:
         route: str = self._parse_route(route)
         assert route in self._routes, KeyError(f"'{route}' is not exists.")
+
         self._index = route
         self.content = self._routes.get(route)
         self.update()
 
         if self._on_route_change is not None:
             try:
-                self._on_route_change(route)
+                self._on_route_change(route, *args, **kwargs)
             except Exception as e:
                 print(e)
 
@@ -117,16 +118,16 @@ class Stacked(ft.AnimatedSwitcher):
     def cur_page(self) -> ft.Control:
         return self.cur_control()
 
-    def go(self, route: Union[str, int] = 0) -> ft.Control:
-        return self.switch(route)
+    def go(self, route: Union[str, int] = 0, *args, **kwargs) -> ft.Control:
+        return self.switch(route, *args, **kwargs)
 
-    def go_next(self) -> ft.Control:
+    def go_next(self, *args, **kwargs) -> ft.Control:
         cur_index: int = tuple(self._routes.keys()).index(self._index)
         routes_count: int = len(self._routes)
         if cur_index < routes_count - 1:
-            return self.switch(cur_index + 1)
+            return self.switch(cur_index + 1, *args, **kwargs)
 
-    def go_prev(self) -> ft.Control:
+    def go_prev(self, *args, **kwargs) -> ft.Control:
         cur_index: int = tuple(self._routes.keys()).index(self._index)
         if cur_index > 0:
-            return self.switch(cur_index - 1)
+            return self.switch(cur_index - 1, *args, **kwargs)
