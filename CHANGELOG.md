@@ -14,3 +14,10 @@
 ## v1.0.4
 
 - Added: `*args` and `**kwargs` to `switch` method to pass them into `on_route_change`.
+
+## v1.1.0
+
+- Added: `go_back` alias method
+- Removed: built-in excption handler on call `on_route_change` callback method
+- Fixed: `get` method
+- Changed: `switch` method and ther instance methods return `Tuple[str, ft.Control]` insted `ft.Contorl`

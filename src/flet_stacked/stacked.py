@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
-from typing import Callable, Dict, Optional, Union
+from typing import Callable, Dict, Optional, Tuple, Union
 
 import flet as ft
 
@@ -80,18 +80,20 @@ class Stacked(ft.AnimatedSwitcher):
         kwargs.setdefault("switch_out_curve", ft.AnimationCurve.EASE_IN_CUBIC)
 
         kwargs.pop("content", None)
+
         super().__init__(self._routes.get(self._index), **kwargs)
 
     def _parse_route(
         self, index: Union[str, int], routes: Dict[str, ft.Control] = None
     ) -> str:
-        routes = self._routes or routes
         if isinstance(index, int):
             return tuple(routes.keys())[index]
         return index
 
-    def switch(self, route: Union[str, int] = 0, *args, **kwargs) -> ft.Control:
-        route: str = self._parse_route(route)
+    def switch(
+        self, route: Union[str, int] = 0, *args, **kwargs
+    ) -> Tuple[str, ft.Control]:
+        route: str = self._parse_route(route, self._routes)
         assert route in self._routes, KeyError(f"'{route}' is not exists.")
 
         self._index = route
@@ -99,14 +101,12 @@ class Stacked(ft.AnimatedSwitcher):
         self.update()
 
         if self._on_route_change is not None:
-            try:
-                self._on_route_change(route, *args, **kwargs)
-            except Exception as e:
-                print(e)
-
-        return self.content
+            self._on_route_change(route, *args, **kwargs)
+        return (route, self.content)
 
     def get(self, route: Union[str, int]) -> ft.Control:
+        if isinstance(route, int):
+            return tuple(self._routes.values())[route]
         return self._routes.get(route)
 
     def cur_route(self) -> str:
@@ -118,16 +118,19 @@ class Stacked(ft.AnimatedSwitcher):
     def cur_page(self) -> ft.Control:
         return self.cur_control()
 
-    def go(self, route: Union[str, int] = 0, *args, **kwargs) -> ft.Control:
+    def go(self, route: Union[str, int] = 0, *args, **kwargs) -> Tuple[str, ft.Control]:
         return self.switch(route, *args, **kwargs)
 
-    def go_next(self, *args, **kwargs) -> ft.Control:
+    def go_next(self, *args, **kwargs) -> Tuple[str, ft.Control]:
         cur_index: int = tuple(self._routes.keys()).index(self._index)
         routes_count: int = len(self._routes)
         if cur_index < routes_count - 1:
             return self.switch(cur_index + 1, *args, **kwargs)
 
-    def go_prev(self, *args, **kwargs) -> ft.Control:
+    def go_prev(self, *args, **kwargs) -> Tuple[str, ft.Control]:
         cur_index: int = tuple(self._routes.keys()).index(self._index)
         if cur_index > 0:
             return self.switch(cur_index - 1, *args, **kwargs)
+
+    def go_back(self, *args, **kwargs) -> Tuple[str, ft.Control]:
+        return self.go_prev(*args, **kwargs)
