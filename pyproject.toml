@@ -18,7 +18,7 @@ packages = [{ include = "flet_stacked", from = "src" }]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0"
-flet = "^0.25.2"
+flet = ">=0.25.2,<=0.70"
 
 
 [build-system]
