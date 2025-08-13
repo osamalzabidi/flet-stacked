@@ -4,6 +4,7 @@ from flet_stacked import Stacked
 
 def main(page: ft.Page):
     page.title = "Flet Stacked Example 1"
+
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 

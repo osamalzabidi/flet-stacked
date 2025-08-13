@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "flet-stacked"
-version = "1.1.0"
+version = "1.2.0"
 description = "a custom Flet control for managing multiple pages with smooth animations."
-authors = ["Osama Mohammed <omamkaz@gmail.com>"]
+authors = ["Osama Mohammed <osamalzabidi@gmail.com>"]
 readme = "README.md"
 license = "MIT"
 keywords = [

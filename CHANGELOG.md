@@ -21,3 +21,11 @@
 - Removed: built-in excption handler on call `on_route_change` callback method
 - Fixed: `get` method
 - Changed: `switch` method and ther instance methods return `Tuple[str, ft.Control]` insted `ft.Contorl`
+
+## v1.2.0
+
+- Chnaged: `cur_control` method has been rename to `current_control`
+- Chnaged: `cur_route` method has been rename to `current_route`
+- Changed: `switch` KeyError exception message
+- Removed: `cur_page` doesn't match with the real meaning of the widget work!!
+- Added: adding `None` return type hint of `go_next`, `go_prev` and it's instance

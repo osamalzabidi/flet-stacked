@@ -1,4 +1,4 @@
-# Flet Stacked v1.1.0
+# Flet Stacked v1.2.0
 
 `Stacked` is a custom Flet control for managing multiple pages with smooth animations. It supports switching pages by key or index, next/previous navigation, and customizable transitions, making it perfect for dynamic UIs.
 
@@ -12,7 +12,7 @@
 You can install Flet Stacked using pip:
 
 ```bash
-pip install git+https://github.com/omamkaz/flet-stacked.git
+pip install git+https://github.com/osamalzabidi/flet-stacked.git
 ```
 
 ## Usage
@@ -24,6 +24,7 @@ from flet_stacked import Stacked
 
 def main(page: ft.Page):
     page.title = "Flet Stacked Example 1"
+
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
